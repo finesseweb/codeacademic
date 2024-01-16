@@ -5,13 +5,19 @@
                   <div class="card-body">
                     <h4 class="card-title">Degree</h4>
                     <form class="form-sample"method="post" action="/degree/add/">
-                      <p class="card-description"> Degree info </p>
+                      <p class="card-description"> Degree Add </p>
                       <div class="row">
+					  <?php $validation = \Config\Services::validation();?>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label"> Name</label>
                             <div class="col-sm-9">
-                              <input type="text" name='degree' class="form-control" />
+                              <input type="text" name='degree' class="form-control" required />
+							  <?php if ($validation->getError('degree')) { ?>
+                            <div class='alert alert-danger mt-2'>
+                                <?= $error = $validation->getError('degree'); ?>
+                            </div>
+                        <?php } ?>
                             </div>
                           </div>
                         </div>

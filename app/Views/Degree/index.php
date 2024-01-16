@@ -1,6 +1,15 @@
-<div class="content-wrapper">
+
+ <div class="content-wrapper">
+ <?php if(session()->has('message')) { ?>
+			  <div class="alert <?= session()->getFlashdata('alert-class') ?>">
+         <?= session()->getFlashdata('message') ?>
+    </div>
+<?php
+}
+?>
             <div class="page-header">
               <h3 class="page-title"> Degree Info </h3>
+			  
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="degree/add" class="btn btn-gradient-primary btn-fw">Add</a></li>
@@ -14,9 +23,9 @@
                   <div class="card-body">
                     <h4 class="card-title">Degree Lists</h4>
                     
-                    <table class="table table-bordered">
+                    <table class="table table-striped table-bordered" id="example">
                       <thead>
-                        <tr>
+                        <tr class="table-info">
                           <th> # </th>
                           <th> Name </th>
                           <th> Status </th>
@@ -25,17 +34,17 @@
                         </tr>
                       </thead>
                       <tbody>
-					  <?php if(!empty($this->data)):
+					  <?php $i=1;if(!empty($this->data)):
 					    foreach($this->data as $row):
 					  ?>
-                        <tr class="table-info">
-                          <td> 1 </td>
-                          <td> <?=$row['name']?> </td>
-                          <td> <?=$row['status']?> </td>
-                          <td> <a href="#" class="btn btn-gradient-dark btn-icon-text"><i class="mdi mdi-file-check btn-icon-append"></i>Edit</a> </td>
+                        <tr>
+                          <td> <?=$i?> </td>
+                          <td> <?=strtoupper($row['name'])?> </td>
+                          <td> <?php if($row['status']==1) { echo "Active"; } else { echo "Deactive"; }?> </td>
+                          <td> <a href="degree/edit/<?=$row['id']?>" class="btn btn-gradient-dark btn-icon-text"><i class="mdi mdi-file-check btn-icon-append"></i>Edit</a> </td>
                           
                         </tr>
-                        <?php endforeach; endif;?>
+                        <?php  $i++; endforeach; endif;?>
                       </tbody>
                     </table>
                   </div>

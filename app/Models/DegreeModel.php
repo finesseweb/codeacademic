@@ -88,10 +88,10 @@ class DegreeModel extends Model{
      * @param  int $userID
      * @return void 
      */
-    public function GetAuthTokenByUserId($userID)
+    public function GetDataByDegree($userID)
     {
-        return $this->db->table('auth_tokens')
-                           ->where('user_id',$userID)
+        return $this->db->table('degrees')
+                           ->where('name',$userID)
                            ->get()
                            ->getRow();
 

@@ -1809,6 +1809,33 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
+
+.navbar{
+	    background: #55497e !important;
+}
+.navbar .navbar-brand-wrapper{
+	 background: #55497e !important;
+	 color:#fff
+}
+.sidebar {
+	    background: #55497e !important;
+		
+		
+}
+.sidebar .nav .nav-item .nav-link {
+	color:#fff !important;
+
+}
+.sidebar .nav .nav-item.active{
+	background:#2d2b34 !important;
+}
+.container-fluid {
+    padding-right: calc(var(--bs-gutter-x) * .0) !important;
+    padding-left: calc(var(--bs-gutter-x) * .0) !important;
+}
+.sidebar .nav .nav-item:hover {
+	background:#2d2b34 !important
+}
 hr {
   margin: 1rem 0;
   color: inherit;

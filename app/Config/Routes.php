@@ -36,8 +36,7 @@ $routes->match(['get', 'post'], 'resetpassword/(:num)/(:any)', 'Auth::resetPassw
 $routes->match(['get', 'post'], 'updatepassword/(:num)', 'Auth::updatepassword/$1'); // UPDATE PASSWORD
 $routes->match(['get', 'post'], 'lockscreen', 'Auth::lockscreen'); // LOCK SCREEN
 $routes->get('logout', 'Auth::logout'); // LOGOUT
-$routes->get('degree', 'Degree::index'); // Degree
-$routes->match(['get', 'post'], 'degree/add', 'Degree::add'); // LOCK SCREEN
+
 
 
 /**
@@ -59,6 +58,9 @@ $routes->group('', ['filter' => 'auth:Role,1'], function ($routes) {
 
 	$routes->get('superadmin', 'Superadmin::index'); // SUPER ADMIN DASHBOARD
 	$routes->match(['get', 'post'], 'superadmin/profile', 'Auth::profile'); 
+	$routes->get('degree', 'Degree::index'); // Degree
+    $routes->match(['get', 'post'], 'degree/add', 'Degree::add'); // LOCK SCREEN
+	$routes->match(['get', 'post'], 'degree/edit/(:num)', 'Degree::edit/$1'); // LOCK SCREEN
 
 });
 
