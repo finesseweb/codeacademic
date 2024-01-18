@@ -78,6 +78,14 @@ $routes->post('college/store', 'CollegeController::store');
 $routes->get('college/edit/(:num)', 'CollegeController::edit/$1');
 $routes->post('college/update/(:num)', 'CollegeController::update/$1');
 $routes->get('college/delete/(:num)', 'CollegeController::delete/$1');
+
+$routes->get('castecategory', 'CasteCategoryController::index');
+$routes->get('castecategory/create', 'CasteCategoryController::create');
+$routes->post('castecategory/store', 'CasteCategoryController::store');
+$routes->get('castecategory/edit/(:num)', 'CasteCategoryController::edit/$1');
+$routes->post('castecategory/update/(:num)', 'CasteCategoryController::update/$1');
+$routes->get('castecategory/delete/(:num)', 'CasteCategoryController::delete/$1');
+
 });
 
 
