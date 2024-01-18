@@ -35,6 +35,8 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="/degree"> Degree </a></li>
                   <li class="nav-item"> <a class="nav-link" href="/academic"> Academic Year </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/university">University </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/college">College </a></li>
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Session </a></li>
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> Department </a></li>
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> Batch </a></li>

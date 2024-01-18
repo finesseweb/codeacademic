@@ -39,6 +39,10 @@ $routes->get('logout', 'Auth::logout'); // LOGOUT
 
 
 
+
+
+
+
 /**
  * --------------------------------------------------------------------
  * Home Routes
@@ -61,7 +65,19 @@ $routes->group('', ['filter' => 'auth:Role,1'], function ($routes) {
 	$routes->get('degree', 'Degree::index'); // Degree
     $routes->match(['get', 'post'], 'degree/add', 'Degree::add'); // LOCK SCREEN
 	$routes->match(['get', 'post'], 'degree/edit/(:num)', 'Degree::edit/$1'); // LOCK SCREEN
+$routes->get('university', 'UniversityController::index');
+$routes->get('university/create', 'UniversityController::create');
+$routes->post('university/store', 'UniversityController::store');
+$routes->get('university/edit/(:num)', 'UniversityController::edit/$1');
+$routes->post('university/update/(:num)', 'UniversityController::update/$1');
+$routes->get('university/delete/(:num)', 'UniversityController::delete/$1');
 
+$routes->get('college', 'CollegeController::index');
+$routes->get('college/create', 'CollegeController::create');
+$routes->post('college/store', 'CollegeController::store');
+$routes->get('college/edit/(:num)', 'CollegeController::edit/$1');
+$routes->post('college/update/(:num)', 'CollegeController::update/$1');
+$routes->get('college/delete/(:num)', 'CollegeController::delete/$1');
 });
 
 
