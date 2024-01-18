@@ -17,4 +17,11 @@ class CollegeModel extends Model
         'university_id' => 'required|numeric|is_not_unique[Universities.university_id]',
         'status' => 'required|in_list[active,inactive]',
     ];
+        public function getActiveCollegesWithUniversities()
+    {
+        return $this->select('Colleges.*, Universities.university_name')
+            ->join('Universities', 'Colleges.university_id = Universities.university_id')
+            ->where('Universities.status', 'active')
+            ->findAll();
+    }
 }

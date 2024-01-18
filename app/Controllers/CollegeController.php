@@ -35,9 +35,7 @@ class CollegeController extends Controller
 
     public function index()
     {
-        $data['colleges'] = $this->collegeModel
-        ->join('Universities', 'Colleges.university_id = Universities.university_id')
-        ->findAll();
+        $data['colleges'] = $this->collegeModel->getActiveCollegesWithUniversities();
     $this->loadCommonViews('college/index', $data);
     }
 
