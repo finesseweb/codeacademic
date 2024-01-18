@@ -86,6 +86,15 @@ $routes->get('castecategory/edit/(:num)', 'CasteCategoryController::edit/$1');
 $routes->post('castecategory/update/(:num)', 'CasteCategoryController::update/$1');
 $routes->get('castecategory/delete/(:num)', 'CasteCategoryController::delete/$1');
 
+
+$routes->get('caste', 'CasteController::index');
+$routes->get('caste/create', 'CasteController::create');
+$routes->post('caste/store', 'CasteController::store');
+$routes->get('caste/edit/(:num)', 'CasteController::edit/$1');
+$routes->post('caste/update/(:num)', 'CasteController::update/$1');
+$routes->get('caste/delete/(:num)', 'CasteController::delete/$1');
+
+
 });
 
 

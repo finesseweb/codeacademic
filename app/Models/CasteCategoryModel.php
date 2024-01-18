@@ -27,4 +27,9 @@ class CasteCategoryModel extends Model
     ];
 
     protected $skipValidation = false;
+    
+    public function findAllActiveCategories()
+    {
+        return $this->where('status', 'active')->findAll();
+    }
 }

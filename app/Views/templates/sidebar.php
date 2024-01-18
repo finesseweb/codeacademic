@@ -36,6 +36,7 @@
                   <li class="nav-item"> <a class="nav-link" href="/degree"> Degree </a></li>
                   <li class="nav-item"> <a class="nav-link" href="/academic"> Academic Year </a></li>
                    <li class="nav-item"> <a class="nav-link" href="/castecategory">Caste Category </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/caste">Caste </a></li>
                   <li class="nav-item"> <a class="nav-link" href="/university">University </a></li>
                     <li class="nav-item"> <a class="nav-link" href="/college">College </a></li>
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Session </a></li>
