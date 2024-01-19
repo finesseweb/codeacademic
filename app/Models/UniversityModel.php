@@ -32,5 +32,11 @@ class UniversityModel extends Model
             'in_list' => 'Invalid status value. It should be either active or inactive.',
         ],
     ];
+    
+     public function findAllActiveUniversities()
+    {
+        // Fetch all active universities
+        return $this->where('status', 'active')->findAll();
+    }
 
 }

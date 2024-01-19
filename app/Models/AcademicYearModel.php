@@ -6,35 +6,73 @@ use CodeIgniter\Model;
 
 class AcademicYearModel extends Model
 {
-    protected $table = 'AcademicYears';
+  protected $table = 'AcademicYears';
     protected $primaryKey = 'academic_year_id';
-    protected $allowedFields = ['academic_year_code', 'start_date', 'end_date', 'college_id', 'status'];
+    protected $allowedFields = ['academic_year_code', 'start_date', 'end_date', 'status'];
 
-    protected $validationRules = [
-        'academic_year_code' => 'required|alpha_numeric|max_length[20]',
-        'start_date' => 'required|valid_date',
-        'end_date' => 'required|valid_date',
-        'college_id' => 'required|is_valid_college',
-        'status' => 'required|in_list[active,inactive]',
+   
+ protected $validationRules = [
+      'academic_year_code' => 'required|max_length[20]',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'status' => 'required|in_list[active,inactive]',
     ];
-
-    protected $validationMessages = [
-        'college_id' => [
-            'is_valid_college' => 'The selected college is not valid or inactive.',
-        ],
-    ];
-
-  public function getActiveAcademicYearsWithCollegesAndUniversities()
+public function getActiveAcademicYearsWithCollegesAndUniversities()
 {
     return $this->select('AcademicYears.*, Colleges.college_name, Universities.university_name')
-        ->join('Colleges', 'AcademicYears.college_id = Colleges.college_id')
-        ->join('Universities', 'Colleges.university_id = Universities.university_id')
+        ->join('AcademicYearCollege', 'AcademicYears.academic_year_id = AcademicYearCollege.academic_year_id', 'left')
+        ->join('Colleges', 'AcademicYearCollege.college_id = Colleges.college_id', 'left')
+        ->join('Universities', 'Colleges.university_id = Universities.university_id', 'left')
+        ->where('AcademicYears.status', 'active')
         ->where('Colleges.status', 'active')
-        ->orWhere('Universities.status', 'active')
+        ->where('Universities.status', 'active')
+        ->groupBy('AcademicYears.academic_year_id')
         ->findAll();
 }
 
-    
+
+
+    public function insertAcademicYear($data)
+    {
+        $this->insert($data);
+        return $this->insertID();
+    }
+
+    public function updateAcademicYear($id, $data)
+    {
+        $this->update($id, $data);
+    }
+
+    public function deleteAcademicYear($id)
+    {
+        $this->delete($id);
+    }
+
+    public function insertColleges($academicYearId, $collegeIds)
+    {
+        $data = [];
+        foreach ($collegeIds as $collegeId) {
+            $data[] = [
+                'academic_year_id' => $academicYearId,
+                'college_id' => $collegeId,
+            ];
+        }
+        $this->db->table('AcademicYearCollege')->insertBatch($data);
+    }
+
+    public function deleteCollegesForAcademicYear($academicYearId)
+    {
+        $this->db->table('AcademicYearCollege')->where('academic_year_id', $academicYearId)->delete();
+    }
+
+    public function getCollegeIdsForAcademicYear($academicYearId)
+    {
+        return $this->db->table('AcademicYearCollege')
+            ->where('academic_year_id', $academicYearId)
+            ->get()->getResultArray();
+    }
+}
+  
     
      
-}
+

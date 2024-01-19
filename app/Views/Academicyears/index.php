@@ -11,7 +11,7 @@
         <h3 class="page-title"> Academic Years </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/academicyear/create" class="btn btn-gradient-primary btn-fw">Add</a></li>
+                <li class="breadcrumb-item"><a href="/academicyears/create" class="btn btn-gradient-primary btn-fw">Add</a></li>
             </ol>
         </nav>
     </div>
@@ -46,7 +46,7 @@
                                     <td><?= $academicYear['university_name'] ?></td> <!-- Display university name -->
                                     <td><?= $academicYear['status'] ?></td>
                                     <td>
-                                        <a class="btn btn-gradient-dark btn-icon-text" href="/academicyear/edit/<?= $academicYear['academic_year_id'] ?>">
+                                        <a class="btn btn-gradient-dark btn-icon-text" href="/academicyears/edit/<?= $academicYear['academic_year_id'] ?>">
                                             <i class="mdi mdi-file-check btn-icon-append">Edit</i>
                                         </a>
                                         <!-- Other table data -->
