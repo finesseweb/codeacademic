@@ -42,7 +42,8 @@ class CasteModel extends Model
     
     public function findAllActiveCastes()
     {
-        return $this->join('CasteCategory', 'Caste.caste_category_id = CasteCategory.caste_category_id')
+        return $this->select('Caste.*, CasteCategory.caste_category_name')
+                ->join('CasteCategory', 'Caste.caste_category_id = CasteCategory.caste_category_id')
             ->where('CasteCategory.status', 'active')
             ->findAll();
     }

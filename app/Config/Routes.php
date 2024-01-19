@@ -94,6 +94,12 @@ $routes->get('caste/edit/(:num)', 'CasteController::edit/$1');
 $routes->post('caste/update/(:num)', 'CasteController::update/$1');
 $routes->get('caste/delete/(:num)', 'CasteController::delete/$1');
 
+$routes->get('/academicyears', 'AcademicYearController::index');
+$routes->get('/academicyears/create', 'AcademicYearController::create');
+$routes->post('/academicyears/store', 'AcademicYearController::store');
+$routes->get('/academicyears/edit/(:num)', 'AcademicYearController::edit/$1');
+$routes->post('/academicyears/update/(:num)', 'AcademicYearController::update/$1');
+$routes->get('/academicyears/delete/(:num)', 'AcademicYearController::delete/$1');
 
 });
 

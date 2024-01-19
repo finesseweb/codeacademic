@@ -34,7 +34,7 @@
               <div class="collapse" id="general-pages">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="/degree"> Degree </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="/academic"> Academic Year </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/academicyears"> Academic Year </a></li>
                    <li class="nav-item"> <a class="nav-link" href="/castecategory">Caste Category </a></li>
                     <li class="nav-item"> <a class="nav-link" href="/caste">Caste </a></li>
                   <li class="nav-item"> <a class="nav-link" href="/university">University </a></li>

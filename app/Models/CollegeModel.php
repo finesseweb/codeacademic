@@ -24,4 +24,6 @@ class CollegeModel extends Model
             ->where('Universities.status', 'active')
             ->findAll();
     }
+    
+   
 }
