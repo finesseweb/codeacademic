@@ -28,7 +28,6 @@
                                 <th>Academic Year Code</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
-                                <th>College</th>
                                 <th>University</th> <!-- Add this column -->
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -42,7 +41,6 @@
                                     <td><?= $academicYear['academic_year_code'] ?></td>
                                     <td><?= $academicYear['start_date'] ?></td>
                                     <td><?= $academicYear['end_date'] ?></td>
-                                    <td><?= $academicYear['college_name'] ?></td>
                                     <td><?= $academicYear['university_name'] ?></td> <!-- Display university name -->
                                     <td><?= $academicYear['status'] ?></td>
                                     <td>

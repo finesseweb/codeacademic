@@ -25,10 +25,10 @@ class CollegeModel extends Model
             ->findAll();
     }
     
-   public function getCollegesByUniversity($universityId)
+   public function getCollegesByUniversities($universityIds)
 {
-    return $this->select('college_id, college_name')
-        ->where('university_id', $universityId)
+    return $this->select('college_id, college_name,university_id')
+        ->whereIn('university_id', $universityIds)
         ->where('status', 'active')
         ->findAll();
 }

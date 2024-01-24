@@ -8,10 +8,10 @@
     <?php endif; ?>
 
     <div class="page-header">
-        <h3 class="page-title"> Academic Years </h3>
+        <h3 class="page-title">Create Academic Year</h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/academicyears/create" class="btn btn-gradient-primary btn-fw">Add</a></li>
+                <li class="breadcrumb-item"><a href="/academicyears" class="btn btn-gradient-primary btn-fw">Back</a></li>
             </ol>
         </nav>
     </div>
@@ -20,7 +20,6 @@
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Create Academic Year</h4>
                     <form method="post" action="/academicyears/store">
                         <?= csrf_field() ?>
                         <div class="form-group">
@@ -36,18 +35,19 @@
                             <input type="date" name="end_date" id="end_date" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="university_id">Select University</label>
-                            <select name="university_id" id="university_id" class="form-control" required>
-                                <option value="">Select a University</option>
+                            <label for="university_ids">Select Universities</label>
+                            <select name="university_ids[]" id="university_ids" class="form-control" multiple required>
                                 <?php foreach ($universities as $university): ?>
-                                    <option value="<?= $university['university_id']; ?>"><?= $university['university_name']; ?></option>
+                                    <option value="<?= $university['university_id']; ?>">
+                                        <?= $university['university_name']; ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="college_ids[]">Select Colleges</label>
+                            <label for="college_ids">Select Colleges</label>
                             <select name="college_ids[]" id="college_ids" class="form-control" multiple required>
-                                <!-- Options will be populated dynamically using JavaScript -->
+                                <!-- This will be populated dynamically using AJAX -->
                             </select>
                         </div>
                         <div class="form-group">
@@ -57,7 +57,7 @@
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
+                        <button type="submit" class="btn btn-gradient-primary mr-2">Create</button>
                         <a href="/academicyears" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
@@ -69,13 +69,14 @@
 <script>
     $(document).ready(function () {
         // Listen for changes in the university dropdown
-        $('#university_id').change(function () {
-            var universityId = $(this).val();
+        $('#university_ids').change(function () {
+            var universityIds = $(this).val();
 
-            // Make an AJAX request to fetch colleges for the selected university
+            // Make an AJAX request to fetch colleges for the selected universities
             $.ajax({
-                type: 'GET',
-                url: '/academicyear/getCollegesByUniversity/' + universityId,
+                type: 'POST',
+                url: '/academicyears/getCollegesByUniversities',
+                data: { university_ids: universityIds },
                 dataType: 'json',
                 success: function (data) {
                     var collegeDropdown = $('#college_ids');
@@ -84,10 +85,10 @@
                     if (data.length > 0) {
                         // Populate the college dropdown with fetched data
                         $.each(data, function (index, college) {
-                            collegeDropdown.append('<option value="' + college.college_id + '">' + college.college_name + '</option>');
+                            collegeDropdown.append('<option value="' + college.college_id +'_'+college.university_id+ '">' + college.college_name + '</option>');
                         });
                     } else {
-                        // If no colleges found for the selected university
+                        // If no colleges found for the selected universities
                         collegeDropdown.append('<option value="">No colleges available</option>');
                     }
                 },

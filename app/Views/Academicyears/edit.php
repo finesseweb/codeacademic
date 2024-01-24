@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
     <?php if (session()->has('success')): ?>
         <p class="alert alert-success"><?= session('success') ?></p>
@@ -36,11 +35,10 @@
                             <input type="date" name="end_date" id="end_date" class="form-control" value="<?= $academicYear['end_date']; ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="university_id">Select University</label>
-                            <select name="university_id" id="university_id" class="form-control" required>
-                                <option value="">Select a University</option>
-                                <?php foreach ($universities as $university): ?>
-                                    <option value="<?= $university['university_id']; ?>" <?= $university_id == $university['university_id'] ? 'selected' : ''; ?>>
+                            <label for="university_id">Select Universities</label>
+                            <select name="university_ids[]" id="university_id" class="form-control" multiple required>
+                                <?php foreach ($universities as $university):?>
+                                    <option value="<?= $university['university_id']; ?>" <?= in_array($university['university_id'], $university_ids) ? 'selected' : ''; ?>>
                                         <?= $university['university_name']; ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -48,9 +46,9 @@
                         </div>
                         <div class="form-group">
                             <label for="college_id">Select Colleges</label>
-                            <select name="college_id[]" id="college_id" class="form-control" multiple required>
-                                <?php foreach ($related_colleges as $college): ?>
-                                    <option value="<?= $college['college_id']; ?>" <?= in_array($college['college_id'], $selected_colleges) ? 'selected' : ''; ?>>
+                            <select name="college_ids[]" id="college_id" class="form-control" multiple required>
+                                <?php foreach ($all_colleges as $college):  ?>
+                                    <option value="<?= $college['college_id']; ?>_<?= $college['university_id']; ?>" <?= in_array($college['college_id'], $selected_colleges) ? 'selected' : ''; ?>>
                                         <?= $college['college_name']; ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -76,12 +74,13 @@
     $(document).ready(function () {
         // Listen for changes in the university dropdown
         $('#university_id').change(function () {
-            var universityId = $(this).val();
+            var universityIds = $(this).val();
 
-            // Make an AJAX request to fetch colleges for the selected university
+            // Make an AJAX request to fetch colleges for the selected universities
             $.ajax({
-                type: 'GET',
-                url: '/academicyear/getCollegesByUniversity/' + universityId,
+                type: 'POST',
+                url: '/academicyears/getCollegesByUniversities',
+                data: {university_ids: universityIds},
                 dataType: 'json',
                 success: function (data) {
                     var collegeDropdown = $('#college_id');
@@ -90,10 +89,10 @@
                     if (data.length > 0) {
                         // Populate the college dropdown with fetched data
                         $.each(data, function (index, college) {
-                            collegeDropdown.append('<option value="' + college.college_id + '">' + college.college_name + '</option>');
+                            collegeDropdown.append('<option value="' + college.college_id +'_'+college.university_id+  '">' + college.college_name + '</option>');
                         });
                     } else {
-                        // If no colleges found for the selected university
+                        // If no colleges found for the selected universities
                         collegeDropdown.append('<option value="">No colleges available</option>');
                     }
                 },

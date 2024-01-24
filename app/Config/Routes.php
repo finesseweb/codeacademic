@@ -100,7 +100,15 @@ $routes->post('/academicyears/store', 'AcademicYearController::store');
 $routes->get('/academicyears/edit/(:num)', 'AcademicYearController::edit/$1');
 $routes->post('/academicyears/update/(:num)', 'AcademicYearController::update/$1');
 $routes->get('/academicyears/delete/(:num)', 'AcademicYearController::delete/$1');
-$routes->get('academicyear/getCollegesByUniversity/(:num)', 'AcademicYearController::getCollegesByUniversity/$1');
+$routes->post('academicyears/getCollegesByUniversities', 'AcademicYearController::getCollegesByUniversities');
+
+// app/Config/Routes.php
+
+$routes->get('department', 'Department::index');
+$routes->get('department/create', 'Department::create');
+$routes->get('department/edit/(:num)', 'Department::edit/$1');
+$routes->post('department/update/(:num)', 'Department::update/$1');
+$routes->get('department/delete/(:num)', 'Department::delete/$1');
 
 
 

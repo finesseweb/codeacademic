@@ -49,7 +49,6 @@ class AcademicYearController extends Controller
         $validationRules = $academicYearModel->getValidationRules();
 
         if ($this->request->getMethod() === 'post' && $this->validate($validationRules)) {
-            
             // Save academic year data
             $academicYearData = [
                 'academic_year_code' => $this->request->getPost('academic_year_code'),
@@ -61,11 +60,11 @@ class AcademicYearController extends Controller
             // Insert academic year and get its ID
             $academicYearId = $academicYearModel->insertAcademicYear($academicYearData);
 
-            // Get selected college IDs from the form
+            // Get selected university and college IDs from the form
+            $universityIds = $this->request->getPost('university_ids');
             $collegeIds = $this->request->getPost('college_ids');
 
-            if (!empty($collegeIds)) {
-                // Insert college links for the academic year
+            if (!empty($universityIds) && !empty($collegeIds)) {
                 $academicYearModel->insertColleges($academicYearId, $collegeIds);
             }
 
@@ -76,117 +75,98 @@ class AcademicYearController extends Controller
         $this->loadCommonViews('academicyears/create', $data);
     }
 
-public function edit($id)
-{
-    $data['academicYear'] = $this->academicYearModel->find($id);
-    
-    if (!$data['academicYear']) {
-        return redirect()->to('/academicyears')->with('error', 'Academic year not found');
-    }
+    public function edit($id)
+    {
+        $data['academicYear'] = $this->academicYearModel->find($id);
 
-    $data['universities'] = $this->universityModel->findAllActiveUniversities();
-
-    // Get college IDs associated with the academic year
-    $collegeIds = array_column($this->academicYearModel->getCollegeIdsForAcademicYear($id),"college_id");
-
-    // Get all available colleges (for dropdown selection)
-    $allColleges = $this->collegeModel->findAllActiveColleges();
-
-    // Create an array of selected college IDs
-    $selectedColleges = [];
-    foreach ($allColleges as $college) {
-        if (in_array($college['college_id'], $collegeIds)) {
-            $selectedColleges[] = $college['college_id'];
-        }
-    }
-
-    // Pass the university ID and selected colleges to the view
-  //  $data['university_id'] = $data['academicYear']['university_id'];
-    
-    // Get the university ID for the selected colleges
-    $universityIds = [];
-    foreach ($selectedColleges as $collegeId) {
-        $universityIds[] = $this->collegeModel->getUniversityIdByCollegeId($collegeId);
-    }
-
-    // Ensure that all selected colleges belong to the same university (optional)
-    $uniqueUniversityIds = array_unique($universityIds);
-    if (count($uniqueUniversityIds) === 1) {
-        $data['university_id'] = reset($uniqueUniversityIds);
-    }
-
-    // Get colleges related to the selected university
-    $relatedColleges = $this->collegeModel->getCollegesByUniversity($data['university_id']);
-    
-    $data['related_colleges'] = $relatedColleges;
-    $data['selected_colleges'] = $selectedColleges;
-    $data['all_colleges'] = $allColleges;
-
-    $this->loadCommonViews('academicyears/edit', $data);
-}
-
-
-
-
-public function update($id)
-{
-    $academicYear = $this->academicYearModel->find($id);
-
-    if (!$academicYear) {
-        return redirect()->to('/academicyears')->with('error', 'Academic year not found');
-    }
-
-    $validationRules = $this->academicYearModel->getValidationRules();
-
-    if ($this->request->getMethod() === 'post' && $this->validate($validationRules)) {
-        // Update academic year data
-        $academicYearData = [
-            'academic_year_code' => $this->request->getPost('academic_year_code'),
-            'start_date' => $this->request->getPost('start_date'),
-            'end_date' => $this->request->getPost('end_date'),
-            'status' => $this->request->getPost('status'),
-        ];
-
-        $this->academicYearModel->updateAcademicYear($id, $academicYearData);
-
-        // Get selected college IDs from the form
-        $collegeIds = $this->request->getPost('college_id');
-
-        // Delete existing college links and insert updated ones
-        $this->academicYearModel->deleteCollegesForAcademicYear($id);
-
-        if (!empty($collegeIds)) {
-            $this->academicYearModel->insertColleges($id, $collegeIds);
+        if (!$data['academicYear']) {
+            return redirect()->to('/academicyears')->with('error', 'Academic year not found');
         }
 
-        return redirect()->to('/academicyears')->with('success', 'Academic year updated successfully');
-    }
+        $data['universities'] = $this->universityModel->findAllActiveUniversities();
 
-    $data['academicYear'] = $academicYear;
-    $data['universities'] = $this->universityModel->findAllActiveUniversities();
+        // Get college IDs associated with the academic year
+        $collegeIds = array_column($this->academicYearModel->getCollegeIdsForAcademicYear($id), "college_id");
 
-    // Get college IDs associated with the academic year
-    $collegeIds = $this->academicYearModel->getCollegeIdsForAcademicYear($id);
+        // Get all available colleges (for dropdown selection)
+        $allColleges = $this->collegeModel->findAllActiveColleges();
 
-    // Get all available colleges (for dropdown selection)
-    $allColleges = $this->collegeModel->findAllActiveColleges();
-
-    // Create an array of selected college IDs
-    $selectedColleges = [];
-    foreach ($allColleges as $college) {
-        if (in_array($college['college_id'], $collegeIds)) {
-            $selectedColleges[] = $college['college_id'];
+        // Create an array of selected college IDs
+        $selectedColleges = [];
+        foreach ($allColleges as $college) {
+            if (in_array($college['college_id'], $collegeIds)) {
+                $selectedColleges[] = $college['college_id'];
+            }
         }
+//echo "<pre>"; print_r($allColleges);exit;
+        // Pass the university IDs and selected colleges to the view
+        $data['university_ids'] = array_column($this->academicYearModel->getUniversityIdsForAcademicYear($id),'university_id');
+       // echo "<pre>"; print_R( $data);exit;
+        $data['selected_colleges'] = $selectedColleges;
+        $data['all_colleges'] = $allColleges;
+
+        $this->loadCommonViews('academicyears/edit', $data);
     }
 
-    // Pass the university ID and selected colleges to the view
-    $data['university_id'] = $data['academicYear']['university_id'];
-    $data['selected_colleges'] = $selectedColleges;
-    $data['all_colleges'] = $allColleges;
+    public function update($id)
+    {
+        $academicYear = $this->academicYearModel->find($id);
 
-    $this->loadCommonViews('academicyears/edit', $data);
-}
+        if (!$academicYear) {
+            return redirect()->to('/academicyears')->with('error', 'Academic year not found');
+        }
 
+        $validationRules = $this->academicYearModel->getValidationRules();
+
+        if ($this->request->getMethod() === 'post' && $this->validate($validationRules)) {
+            // Update academic year data
+            $academicYearData = [
+                'academic_year_code' => $this->request->getPost('academic_year_code'),
+                'start_date' => $this->request->getPost('start_date'),
+                'end_date' => $this->request->getPost('end_date'),
+                'status' => $this->request->getPost('status'),
+            ];
+
+            $this->academicYearModel->updateAcademicYear($id, $academicYearData);
+
+            // Get selected university and college IDs from the form
+            $universityIds = $this->request->getPost('university_ids');
+            $collegeIds = $this->request->getPost('college_ids');
+
+            // Delete existing university and college links
+            $this->academicYearModel->deleteCollegesForAcademicYear($id);
+            // Insert updated university and college links
+            if (!empty($universityIds) && !empty($collegeIds)) {
+                $this->academicYearModel->insertColleges($id, $collegeIds);
+            }
+
+            return redirect()->to('/academicyears')->with('success', 'Academic year updated successfully');
+        }
+
+        $data['academicYear'] = $academicYear;
+        $data['universities'] = $this->universityModel->findAllActiveUniversities();
+
+        // Get college IDs associated with the academic year
+        $collegeIds = $this->academicYearModel->getCollegeIdsForAcademicYear($id);
+
+        // Get all available colleges (for dropdown selection)
+        $allColleges = $this->collegeModel->findAllActiveColleges();
+
+        // Create an array of selected college IDs
+        $selectedColleges = [];
+        foreach ($allColleges as $college) {
+            if (in_array($college['college_id'], $collegeIds)) {
+                $selectedColleges[] = $college['college_id'];
+            }
+        }
+
+        // Pass the university IDs and selected colleges to the view
+        $data['university_ids'] = $this->academicYearModel->getUniversityIdsForAcademicYear($id);
+        $data['selected_colleges'] = $selectedColleges;
+        $data['all_colleges'] = $allColleges;
+
+        $this->loadCommonViews('academicyears/edit', $data);
+    }
 
     public function delete($id)
     {
@@ -196,15 +176,16 @@ public function update($id)
             return redirect()->to('/academicyears')->with('error', 'Academic year not found');
         }
 
-        $this->academicYearModel->deleteCollegesForAcademicYear($id); // Delete associated college links
-        $this->academicYearModel->deleteAcademicYear($id); // Delete the academic year itself
+        $this->academicYearModel->deleteCollegesForAcademicYear($id);
+        $this->academicYearModel->deleteAcademicYear($id);
 
         return redirect()->to('/academicyears')->with('success', 'Academic year deleted successfully');
     }
 
-    public function getCollegesByUniversity($universityId)
+    public function getCollegesByUniversities()
     {
-        $colleges = $this->collegeModel->getCollegesByUniversity($universityId);
+        $universityIds = $this->request->getPost('university_ids');
+        $colleges = $this->collegeModel->getCollegesByUniversities($universityIds);
         return $this->response->setJSON($colleges);
     }
 }
