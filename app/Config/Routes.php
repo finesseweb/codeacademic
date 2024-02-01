@@ -94,6 +94,20 @@ $routes->get('caste/edit/(:num)', 'CasteController::edit/$1');
 $routes->post('caste/update/(:num)', 'CasteController::update/$1');
 $routes->get('caste/delete/(:num)', 'CasteController::delete/$1');
 
+
+
+//session raushan
+
+$routes->get('session', 'SessionController::index'); // Session
+$routes->match(['get', 'post'], 'session/add', 'SessionController::add'); // Session
+$routes->match(['get', 'post'], 'session/edit/(:num)', 'SessionController::edit/$1'); // Session
+$routes->match(['get', 'post'], 'session/delete/(:num)', 'SessionController::delete/$1'); // Session
+//year raushan
+$routes->get('year', 'YearController::index'); // Year
+$routes->match(['get', 'post'], 'year/add', 'YearController::add'); // Year
+$routes->match(['get', 'post'], 'year/edit/(:num)', 'YearController::edit/$1'); // Year
+$routes->match(['get', 'post'], 'year/delete/(:num)', 'YearController::delete/$1'); // Year
+
 $routes->get('/academicyears', 'AcademicYearController::index');
 $routes->get('/academicyears/create', 'AcademicYearController::create');
 $routes->post('/academicyears/store', 'AcademicYearController::store');

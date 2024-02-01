@@ -39,7 +39,8 @@
                     <li class="nav-item"> <a class="nav-link" href="/caste">Caste </a></li>
                   <li class="nav-item"> <a class="nav-link" href="/university">University </a></li>
                     <li class="nav-item"> <a class="nav-link" href="/college">College </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Session </a></li>
+					<li class="nav-item"> <a class="nav-link" href="/year"> Year </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/session"> Session </a></li>
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> Department </a></li>
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> Batch </a></li>
 				  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> Semester/Year </a></li>

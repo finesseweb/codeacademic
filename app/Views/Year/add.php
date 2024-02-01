@@ -1,25 +1,21 @@
  <div class="main-panel">
  <div class="row">
 <div class="col-12">
-
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Degree</h4>
-                    <form class="form-sample"method="post" action="/degree/edit/<?=$degree['id']?>">
-                      <p class="card-description"> Degree Edit </p>
+                    <h4 class="card-title">Year</h4>
+                    <form class="form-sample"method="post" action="/year/add/">
+                      <p class="card-description"> Year Add </p>
                       <div class="row">
-					  <?php $validation = \Config\Services::validation();
-					  
-					 
-					  ?>
+					  <?php $validation = \Config\Services::validation();?>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label"> Name</label>
                             <div class="col-sm-9">
-                              <input type="text" name='degree' class="form-control" value="<?=$degree['name']?>" />
-							  <?php if ($validation->getError('degree')) { ?>
+                              <input type="text" name='year' class="form-control" required />
+							  <?php if ($validation->getError('year')) { ?>
                             <div class='alert alert-danger mt-2'>
-                                <?= $error = $validation->getError('degree'); ?>
+                                <?= $error = $validation->getError('year'); ?>
                             </div>
                         <?php } ?>
                             </div>
@@ -30,8 +26,8 @@
                             <label class="col-sm-3 col-form-label">Status</label>
                             <div class="col-sm-9">
                               <select name='status' class="form-control">
-                                <option value='1' <?php if($degree['status']==1) { echo "selected"; } ?>>Active</option>
-                                <option value='2' <?php if($degree['status']==2) { echo "selected"; } ?>>Deactive</option>
+                                <option value='active'>Active</option>
+                                <option value='deactive'>Deactive</option>
                                
                               </select>
                             </div>
@@ -150,7 +146,7 @@
 					   <div class="row">
 					    <div class="col-sm-3"></div>
 					   <div class="col-sm-9">
-					  <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
+					  <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
                       <button class="btn btn-light">Cancel</button>
 					  </div>
 					  </div>

@@ -100,6 +100,7 @@ class DegreeModel extends Model{
 	public function GetData()
     {
         return $this->db->table('degrees')
+		                   ->where('status',1)
                           ->get()->getResultArray();
                           
 

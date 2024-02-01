@@ -8,11 +8,11 @@
 }
 ?>
             <div class="page-header">
-              <h3 class="page-title"> Degree Info </h3>
+              <h3 class="page-title"> Session Info </h3>
 			  
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="degree/add" class="btn btn-gradient-primary btn-fw">Add</a></li>
+                  <li class="breadcrumb-item"><a href="/session/add" class="btn btn-gradient-primary btn-fw">Add</a></li>
                 
                 </ol>
               </nav>
@@ -21,7 +21,7 @@
              <div class="col-lg-12 stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Degree Lists</h4>
+                    <h4 class="card-title">Session Lists</h4>
                     
                     <table class="table table-striped table-bordered" id="example">
                       <thead>
@@ -39,10 +39,10 @@
 					  ?>
                         <tr>
                           <td> <?=$i?> </td>
-                          <td> <?=strtoupper($row['name'])?> </td>
-                          <td> <?php if($row['status']==1) { echo "Active"; } else { echo "Deactive"; }?> </td>
-                          <td> <a href="degree/edit/<?=$row['id']?>" class="btn btn-gradient-dark btn-icon-text"><i class="mdi mdi-file-check btn-icon-append"></i>Edit</a> 
-                          <a href="degree/delete/<?=$row['id']?>/<?=$row['status']?>" class="btn btn-gradient-danger btn-icon-text"><i class="mdi mdi-delete btn-icon-append"></i>Delete</a> </td>
+                          <td> <?=strtoupper($row['session_name'])?> </td>
+                          <td> <?php echo $row['status'] ?> </td>
+                          <td> <a href="/session/edit/<?=$row['session_id']?>" class="btn btn-gradient-dark btn-icon-text"><i class="mdi mdi-file-check btn-icon-append"></i>Edit</a> 
+                          <a href="/session/delete/<?=$row['session_id']?>" class="btn btn-gradient-danger btn-icon-text"><i class="mdi mdi-delete btn-icon-append"></i>Delete</a></td>
                           
                         </tr>
                         <?php  $i++; endforeach; endif;?>

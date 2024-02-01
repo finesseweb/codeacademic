@@ -4,9 +4,9 @@
 
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Degree</h4>
-                    <form class="form-sample"method="post" action="/degree/edit/<?=$degree['id']?>">
-                      <p class="card-description"> Degree Edit </p>
+                    <h4 class="card-title">Year</h4>
+                    <form class="form-sample"method="post" action="/year/edit/<?=$year['year_id']?>"">
+                      <p class="card-description"> Year Edit </p>
                       <div class="row">
 					  <?php $validation = \Config\Services::validation();
 					  
@@ -16,10 +16,10 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label"> Name</label>
                             <div class="col-sm-9">
-                              <input type="text" name='degree' class="form-control" value="<?=$degree['name']?>" />
-							  <?php if ($validation->getError('degree')) { ?>
+                              <input type="text" name='year' class="form-control" value="<?=$year['year']?>" />
+							  <?php if ($validation->getError('year')) { ?>
                             <div class='alert alert-danger mt-2'>
-                                <?= $error = $validation->getError('degree'); ?>
+                                <?= $error = $validation->getError('year'); ?>
                             </div>
                         <?php } ?>
                             </div>
@@ -30,8 +30,8 @@
                             <label class="col-sm-3 col-form-label">Status</label>
                             <div class="col-sm-9">
                               <select name='status' class="form-control">
-                                <option value='1' <?php if($degree['status']==1) { echo "selected"; } ?>>Active</option>
-                                <option value='2' <?php if($degree['status']==2) { echo "selected"; } ?>>Deactive</option>
+                                <option value='active' <?php if($year['status']=='active') { echo "selected"; } ?>>Active</option>
+                                <option value='deactive' <?php if($year['status']=='deactive') { echo "selected"; } ?>>Deactive</option>
                                
                               </select>
                             </div>
