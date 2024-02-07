@@ -1,5 +1,6 @@
-<div class="row col-md-12">
-    <div class="col-md-12">
+<div class="main-panel">
+ <div class="row">
+<div class="col-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Edit College</h4>

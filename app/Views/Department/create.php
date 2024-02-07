@@ -3,7 +3,7 @@
 <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Create Caste</h4>
+                <h4 class="card-title">Create Department</h4>
 
                 <?php if (isset($validation)): ?>
                     <div class="alert alert-danger">
@@ -11,24 +11,24 @@
                     </div>
                 <?php endif; ?>
 
-                <form method="POST" action="/caste/store">
+                <form method="POST" action="/department/store">
                     <?= csrf_field() ?>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Caste Name</label>
+                                <label class="col-sm-3 col-form-label">Department Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="caste_name" required />
+                                    <input type="text" class="form-control" name="department_name" required />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Caste Category</label>
+                                <label class="col-sm-3 col-form-label">Degree Name</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="caste_category_id" required>
-                                        <?php foreach ($casteCategories as $casteCategory): ?>
-                                            <option value="<?= $casteCategory['caste_category_id'] ?>"><?= $casteCategory['caste_category_name'] ?></option>
+                                    <select class="form-control" name="degree_id" required>
+                                        <?php foreach ($degrees as $degree): ?>
+                                            <option value="<?= $degree['id'] ?>"><?= strtoupper($degree['name']) ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -36,6 +36,18 @@
                         </div>
                     </div>
                     <div class="row">
+					 <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">College Name</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="college_id" required>
+                                        <?php foreach ($colleges as $college): ?>
+                                            <option value="<?= $college['college_id'] ?>"><?= $college['college_name'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Status</label>

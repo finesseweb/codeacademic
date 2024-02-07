@@ -3,7 +3,7 @@
 <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Edit Caste</h4>
+                <h4 class="card-title">Edit Course</h4>
 
                 <?php if (isset($validation)): ?>
                     <div class="alert alert-danger">
@@ -11,38 +11,57 @@
                     </div>
                 <?php endif; ?>
 
-                <form method="POST" action="/caste/update/<?= $caste['caste_id'] ?>">
+                <form method="POST" action="/professor/update/<?= $professor['professor_id'] ?>">
                     <?= csrf_field() ?>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Caste Name</label>
+                                <label class="col-sm-3 col-form-label">Course Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="caste_name" value="<?= $caste['caste_name'] ?>" required />
+                                    <input type="text" class="form-control" name="first_name" value="<?= $professor['first_name'] ?>" required />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Caste Category</label>
+                         <div class="col-md-6">
+                           <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Last Name</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="caste_category_id" required>
-                                        <?php foreach ($casteCategories as $casteCategory): ?>
-                                            <option value="<?= $casteCategory['caste_category_id'] ?>" <?= ($casteCategory['caste_category_id'] == $caste['caste_category_id']) ? 'selected' : '' ?>><?= $casteCategory['caste_category_name'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input type="text" class="form-control" value="<?= $professor['last_name'] ?>" name="last_name" required />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
+					<div class="col-md-6">
+                           <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" value="<?= $professor['email'] ?>" name="email" required />
+                                </div>
+                            </div>
+                        </div>
+					<div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Department</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="department_id" required>
+                                        <?php foreach ($department as $depart): ?>
+                                            <option value="<?= $depart['department_id'] ?>"><?= $depart['department_name'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+					</div>	
+					 <div class="row">
+						 
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Status</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="status" required>
-                                        <option value="active" <?= ($caste['status'] == 'active') ? 'selected' : '' ?>>Active</option>
-                                        <option value="inactive" <?= ($caste['status'] == 'inactive') ? 'selected' : '' ?>>Inactive</option>
+                                        <option value="active" <?= ($professor['status'] == 'active') ? 'selected' : '' ?>>Active</option>
+                                        <option value="inactive" <?= ($professor['status'] == 'inactive') ? 'selected' : '' ?>>Inactive</option>
                                     </select>
                                 </div>
                             </div>

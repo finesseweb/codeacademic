@@ -95,6 +95,38 @@ $routes->post('caste/update/(:num)', 'CasteController::update/$1');
 $routes->get('caste/delete/(:num)', 'CasteController::delete/$1');
 
 
+//session raushan
+$routes->get('department', 'DepartmentController::index');
+$routes->get('department/create', 'DepartmentController::create');
+$routes->post('department/store', 'DepartmentController::store');
+$routes->get('department/edit/(:num)', 'DepartmentController::edit/$1');
+$routes->post('department/update/(:num)', 'DepartmentController::update/$1');
+$routes->get('department/delete/(:num)', 'DepartmentController::delete/$1');
+
+
+$routes->get('courses', 'CoursesController::index');
+$routes->get('courses/create', 'CoursesController::create');
+$routes->post('courses/store', 'CoursesController::store');
+$routes->get('courses/edit/(:num)', 'CoursesController::edit/$1');
+$routes->post('courses/update/(:num)', 'CoursesController::update/$1');
+$routes->get('courses/delete/(:num)', 'CoursesController::delete/$1');
+
+
+$routes->get('papers', 'PapersController::index');
+$routes->get('papers/create', 'PapersController::create');
+$routes->post('papers/store', 'PapersController::store');
+$routes->get('papers/edit/(:num)', 'PapersController::edit/$1');
+$routes->post('papers/update/(:num)', 'PapersController::update/$1');
+$routes->get('papers/delete/(:num)', 'PapersController::delete/$1');
+
+
+
+$routes->get('professor', 'ProfessorController::index');
+$routes->get('professor/create', 'ProfessorController::create');
+$routes->post('professor/store', 'ProfessorController::store');
+$routes->get('professor/edit/(:num)', 'ProfessorController::edit/$1');
+$routes->post('professor/update/(:num)', 'ProfessorController::update/$1');
+$routes->get('professor/delete/(:num)', 'ProfessorController::delete/$1');
 
 //session raushan
 

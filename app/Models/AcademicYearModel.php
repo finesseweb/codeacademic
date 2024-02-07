@@ -71,6 +71,16 @@ public function getActiveAcademicYearsWithCollegesAndUniversities()
             ->where('academic_year_id', $academicYearId)
             ->get()->getResultArray();
     }
+	
+	
+	public function GetData()
+    {
+        return $this->db->table('academicyears')
+		                   ->where('status','active')
+                          ->get()->getResultArray();
+                          
+
+    }
 }
   
     
